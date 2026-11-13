@@ -1,17 +1,19 @@
 /* ==========================================================
    TYEI – Twapia Youth Empowerment Initiative
-   Palette sampled from the logo: blue, white, black.
+   Palette: Royal Blue #123B70, Vibrant Orange #F58220, white.
    ========================================================== */
 
 :root {
-  --blue: #0068ef;      /* logo "TWAPIA YOUTH" blue */
-  --blue-deep: #004fc0; /* hover / pressed */
-  --sky: #008ffc;       /* logo circle blue */
-  --ink: #0d1f33;       /* logo black (navy-black) */
-  --ink-soft: #3b4a5d;
+  --royal: #123B70;       /* main brand blue */
+  --royal-deep: #0b2547;  /* darker blue: text, footer, hero overlay */
+  --orange: #F58220;      /* energy colour: buttons, highlights */
+  --orange-deep: #c85f00; /* orange that is readable as small text */
+  --orange-wash: #fff2e5; /* soft orange background */
+  --ink: #0b2547;
+  --ink-soft: #3f5068;
   --white: #ffffff;
-  --mist: #eef4fc;      /* very light blue wash */
-  --line: #d6e2f3;
+  --mist: #eef3fa;        /* very light blue wash */
+  --line: #d8e2ef;
 
   --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
   --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -56,7 +58,7 @@ h1, h2, h3 {
 }
 
 :focus-visible {
-  outline: 3px solid var(--sky);
+  outline: 3px solid var(--orange);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -85,17 +87,17 @@ h1, h2, h3 {
   font-size: var(--step-0);
   text-decoration: none;
   padding: 0.85rem 1.6rem;
-  border: 2px solid var(--blue);
-  background: var(--blue);
-  color: var(--white);
+  border: 2px solid var(--orange);
+  background: var(--orange);
+  color: var(--ink);
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.btn:hover { background: var(--blue-deep); border-color: var(--blue-deep); }
-.btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
-.btn--ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
-.btn--light { background: var(--white); color: var(--blue); border-color: var(--white); }
-.btn--light:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.btn:hover { background: var(--royal); border-color: var(--royal); color: var(--white); }
+.btn--ghost { background: transparent; color: var(--royal); border-color: var(--royal); }
+.btn--ghost:hover { background: var(--royal); border-color: var(--royal); color: var(--white); }
+.btn--light { background: var(--orange); color: var(--ink); border-color: var(--orange); }
+.btn--light:hover { background: var(--white); border-color: var(--white); color: var(--royal); }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -133,9 +135,9 @@ h1, h2, h3 {
   padding: 0.35rem 0;
   border-bottom: 2px solid transparent;
 }
-.nav-list a:hover { border-color: var(--blue); }
+.nav-list a:hover { border-color: var(--orange); }
 .nav-list .btn { padding: 0.55rem 1.1rem; border-bottom-width: 2px; }
-.nav-list .btn:hover { border-color: var(--blue-deep); }
+.nav-list .btn:hover { border-color: var(--royal); }
 
 .nav-toggle {
   display: none;
@@ -172,7 +174,7 @@ h1, h2, h3 {
   overflow: hidden;
   padding-block: clamp(4rem, 8vw, 7rem);
   color: var(--white);
-  background-color: #102b45;
+  background-color: var(--royal-deep);
 }
 .hero--banner::before {
   content: "";
@@ -189,7 +191,7 @@ h1, h2, h3 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(5, 22, 42, 0.91) 0%, rgba(5, 22, 42, 0.78) 48%, rgba(5, 22, 42, 0.42) 100%);
+  background: linear-gradient(90deg, rgba(11, 37, 71, 0.93) 0%, rgba(18, 59, 112, 0.80) 50%, rgba(18, 59, 112, 0.42) 100%);
 }
 .hero .wrap {
   display: grid;
@@ -247,6 +249,7 @@ h1, h2, h3 {
   filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.28));
 }
 .hero .btn--ghost { border-color: rgba(255,255,255,.85); color: var(--white); }
+.hero h1::after { content: ""; display: block; width: 5rem; height: 8px; background: var(--orange); margin-top: 1.3rem; }
 .hero .btn--ghost:hover { background: var(--white); color: var(--ink); }
 
 @keyframes rise {
@@ -258,13 +261,13 @@ h1, h2, h3 {
 @media (max-width: 860px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-logo { max-width: 22rem; margin-inline: 0; order: 0; }
-  .hero--banner::after { background: linear-gradient(90deg, rgba(5, 22, 42, 0.9), rgba(5, 22, 42, 0.65)); }
+  .hero--banner::after { background: linear-gradient(90deg, rgba(11, 37, 71, 0.92), rgba(18, 59, 112, 0.7)); }
 }
 
 /* ---------- Motto band ---------- */
 .band {
-  background: var(--blue);
-  color: var(--white);
+  background: var(--orange);
+  color: var(--ink);
   padding-block: clamp(1.8rem, 4vw, 3rem);
 }
 .band p {
@@ -278,11 +281,12 @@ h1, h2, h3 {
 /* ---------- Generic section ---------- */
 .section { padding-block: clamp(3.5rem, 8vw, 7rem); }
 .section--mist { background: var(--mist); }
-.section--dark { background: var(--ink); color: var(--white); }
-.section--blue { background: var(--blue); color: var(--white); }
+.section--dark { background: var(--royal); color: var(--white); }
+.section--blue { background: var(--royal); color: var(--white); }
 
 .section-head { max-width: 46rem; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
 .section-head h2 { font-size: var(--step-3); }
+.section-head h2::after { content: ""; display: block; width: 4rem; height: 6px; background: var(--orange); margin-top: 1rem; }
 .section-head p { margin-top: 1rem; font-size: var(--step-1); line-height: 1.45; color: var(--ink-soft); }
 .section--dark .section-head p { color: #b9c8db; }
 
@@ -295,7 +299,7 @@ h1, h2, h3 {
 .about-grid h3 {
   font-size: var(--step-2);
   padding-top: 1rem;
-  border-top: 6px solid var(--blue);
+  border-top: 6px solid var(--orange);
   margin-bottom: 1rem;
 }
 .about-grid p { max-width: 34rem; }
@@ -322,7 +326,7 @@ h1, h2, h3 {
   top: 0.68em;
   width: 0.5rem;
   height: 0.5rem;
-  background: var(--blue);
+  background: var(--orange);
 }
 .purpose p { margin-bottom: 1rem; color: var(--ink-soft); }
 
@@ -342,7 +346,7 @@ h1, h2, h3 {
   padding-block: 1.3rem;
   border-top: 1px solid var(--line);
 }
-.focus-list h3 { font-size: var(--step-1); margin-bottom: 0.35rem; color: var(--blue); }
+.focus-list h3 { font-size: var(--step-1); margin-bottom: 0.35rem; color: var(--royal); }
 .focus-list p { color: var(--ink-soft); max-width: 32rem; }
 @media (max-width: 760px) { .focus-list { grid-template-columns: 1fr; } }
 
@@ -359,7 +363,7 @@ h1, h2, h3 {
   letter-spacing: -0.01em;
   padding-bottom: 0.5rem;
   margin-bottom: 0.6rem;
-  border-bottom: 3px solid var(--sky);
+  border-bottom: 3px solid var(--orange);
 }
 .values dd { color: #c5d3e4; max-width: 24rem; }
 @media (max-width: 860px) { .values { grid-template-columns: 1fr 1fr; } }
@@ -374,21 +378,21 @@ h1, h2, h3 {
 }
 .member-types li {
   background: var(--white);
-  border: 2px solid var(--ink);
+  border: 2px solid var(--royal);
   padding: 1.1rem 1.2rem;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: var(--step-1);
   line-height: 1.15;
 }
-.member-types li:first-child { background: var(--blue); border-color: var(--blue); color: var(--white); }
+.member-types li:first-child { background: var(--orange); border-color: var(--orange); color: var(--ink); }
 
 .two-col {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(1.5rem, 4vw, 3.5rem);
 }
-.two-col h3 { font-size: var(--step-1); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 3px solid var(--ink); }
+.two-col h3 { font-size: var(--step-1); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 3px solid var(--orange); }
 .two-col li { padding-block: 0.4rem; border-bottom: 1px solid var(--line); }
 @media (max-width: 920px) { .member-types { grid-template-columns: 1fr 1fr; } .two-col { grid-template-columns: 1fr; } }
 
@@ -406,7 +410,7 @@ h1, h2, h3 {
   font-size: var(--step-1);
   max-width: 40rem;
 }
-.leader-formula strong { font-family: var(--font-display); }
+.leader-formula strong { font-family: var(--font-display); color: var(--orange); }
 .leader-note { margin-top: 0.8rem; max-width: 40rem; color: #dbe8fb; }
 
 .committee { margin-top: clamp(2.5rem, 5vw, 4rem); }
@@ -415,7 +419,7 @@ h1, h2, h3 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: clamp(2rem, 5vw, 5rem);
-  border-top: 2px solid var(--white);
+  border-top: 3px solid var(--orange);
 }
 .committee li { padding-block: 0.7rem; border-bottom: 1px solid rgba(255, 255, 255, 0.4); font-weight: 600; }
 @media (max-width: 700px) { .committee ul { grid-template-columns: 1fr; } }
@@ -442,7 +446,7 @@ h1, h2, h3 {
   content: counter(step);
   font-family: var(--font-display);
   font-weight: 900;
-  color: var(--blue);
+  color: var(--orange-deep);
 }
 
 .partners li {
@@ -452,8 +456,8 @@ h1, h2, h3 {
 .partner-rule {
   margin-top: 1.4rem;
   padding: 1rem 1.2rem;
-  border-left: 6px solid var(--blue);
-  background: var(--mist);
+  border-left: 6px solid var(--orange);
+  background: var(--orange-wash);
   font-weight: 600;
 }
 @media (max-width: 860px) { .work-grid { grid-template-columns: 1fr; } }
@@ -474,7 +478,7 @@ input, select, textarea {
   width: 100%;
 }
 textarea { min-height: 7rem; resize: vertical; }
-input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
 .form-note { font-size: var(--step--1); color: #9fb3cc; }
 @media (max-width: 860px) { .join { grid-template-columns: 1fr; } }
 
@@ -482,7 +486,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
 .site-footer {
   background: var(--ink);
   color: #b9c8db;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 4px solid var(--orange);
   padding-block: 2rem;
   font-size: var(--step--1);
 }
@@ -537,7 +541,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
   color: var(--ink-soft);
   font-size: 0.82rem;
 }
-.photo-note a { color: var(--blue-deep); }
+.photo-note a { color: var(--royal); }
 @media (max-width: 760px) {
   .photo-gallery { grid-template-columns: 1fr; }
   .photo-card img { aspect-ratio: 16 / 10; }
