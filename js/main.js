@@ -45,3 +45,77 @@ form.addEventListener("submit", (e) => {
   window.location.href =
     `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
+
+// ---- Smooth transitions between sections ----
+(function () {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const header = document.querySelector(".site-header");
+  const bar = document.querySelector(".progress");
+
+  // 1. Content eases in as it scrolls into view
+  const targets = [
+    ".section-head", ".about-grid > div", ".purpose", ".focus-list li",
+    ".photo-card", ".photo-note", ".values > div", ".member-types li",
+    ".two-col > div", ".leader-quote", ".leader-formula", ".leader-note",
+    ".committee", ".programmes h3", ".programmes li", ".work-grid > div",
+    ".safeguard", ".join .copy", "#join-form"
+  ];
+  const items = [];
+  targets.forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      const same = [...el.parentElement.children].filter((c) => c.matches(sel));
+      el.classList.add("reveal");
+      el.style.setProperty("--d", (same.indexOf(el) % 3) * 90 + "ms");
+      items.push(el);
+    });
+  });
+
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach((el) => el.classList.add("is-visible"));
+  } else {
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.classList.add("is-visible");
+        setTimeout(() => el.classList.add("is-done"), 1300);
+        reveal.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    items.forEach((el) => reveal.observe(el));
+  }
+
+  // 2. Progress bar and header shadow
+  let ticking = false;
+  function onScroll() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.transform = "scaleX(" + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ")";
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+  }
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { onScroll(); ticking = false; });
+  }, { passive: true });
+  onScroll();
+
+  // 3. Highlight the menu link of the section being read
+  const links = [...document.querySelectorAll('.nav-list a[href^="#"]:not(.btn)')];
+  const byTarget = new Map();
+  links.forEach((a) => {
+    const section = document.querySelector(a.getAttribute("href"));
+    if (section) byTarget.set(section, a);
+  });
+  if ("IntersectionObserver" in window) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((l) => { l.classList.remove("is-active"); l.removeAttribute("aria-current"); });
+        const link = byTarget.get(entry.target);
+        link.classList.add("is-active");
+        link.setAttribute("aria-current", "true");
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    byTarget.forEach((_, section) => spy.observe(section));
+  }
+})();
